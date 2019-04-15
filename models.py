@@ -110,7 +110,7 @@ class SingleCell(TorchModel):
 
 
 class GAPNet(TorchModel):
-    def __init__(self, fc_units=2048, dropout=0.5, num_classes=209, input_shape=None):
+    def __init__(self, fc_units=2048, dropout=0.5, num_classes=209, input_shape=None, gap1=True, gap2=True, gap3=True, gap4=True):
         super(GAPNet, self).__init__()
         assert input_shape
         in_c = input_shape[0]

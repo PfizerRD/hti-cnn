@@ -5,15 +5,15 @@
   "dataset": {
     "reader": "datasets.Cellpainting",
     "group_views": false,
-    "label_matrix_file": ":data/ci8b00670_si_002/Label_Matrix/label-matrix.mtx",
-    "label_row_index_file": "data/ci8b00670_si_002/Label_Matrix/row-compound-index.csv",
-    "label_col_index_file": "data/ci8b00670_si_002/Label_Matrix/column-assay-index.csv",
-    "data_directory_path": "data/npzs/",
+    "label_matrix_file": "/data/ci8b00670_si_002/Label_Matrix/label-matrix.mtx",
+    "label_row_index_file": "/data/ci8b00670_si_002/Label_Matrix/row-compound-index.csv",
+    "label_col_index_file": "/data/ci8b00670_si_002/Label_Matrix/column-assay-index.csv",
+    "data_directory_path": "/data/npzs/",
     "train": {
-      "sample_index_file": "data/ml.jku.at/software/cellpainting/dataset/datasplit1-train.csv"
+      "sample_index_file": "/data/ml.jku.at/software/cellpainting/dataset/datasplit1-train.csv"
     },
     "val": {
-      "sample_index_file": "data/ml.jku.at/software/cellpainting/dataset/datasplit1-val.csv"
+      "sample_index_file": "/data/ml.jku.at/software/cellpainting/dataset/datasplit1-val.csv"
     },
     "transforms": [
       "torchvision.transforms.ToTensor()",
