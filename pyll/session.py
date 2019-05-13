@@ -24,10 +24,13 @@ class PyLL(object):
         self.enable_optimizer = enable_optimizer
         args, unknown_args = self.__parse_args__()
         # --
-        if args.gpu != -1:
+        if args.gpu != 0:
+            gpus = [int(i) for i in args.gpu.split(',')]
+            print(gpus)
             os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-            os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
+            os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
             self.cuda_is_available = torch.cuda.is_available()
+            device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         else:
             os.environ["CUDA_VISIBLE_DEVICES"] = ""
             self.cuda_is_available = False
@@ -43,7 +46,12 @@ class PyLL(object):
         # Init Model        
         model: TorchModel = invoke_model_from_config(config, datasets[list(datasets.keys())[0]])
         loss = model.loss
-        model = self.cuda(torch.nn.DataParallel(model))
+        #if torch.cuda.device_count() > 1:
+        #    print("Found", torch.cuda.device_count(), "GPUs")
+        gpus = [int(i) for i in args.gpu.split(',')]
+        model = self.cuda(torch.nn.DataParallel(model, device_ids=[0,1,2,3]))
+        model.to(device)
+
         print("Trainable Parameters: {:,}".format(sum(p.numel() for p in model.parameters() if p.requires_grad)))
 
         # Optimizer
@@ -121,8 +129,8 @@ class PyLL(object):
 
         parser.add_argument('--config', '-c', metavar='CONFIG', default='config.json',
                             help='run config')
-        parser.add_argument('-g', '--gpu', default="0", type=str, metavar='N',
-                            help='gpu ids for training (default: 0); set to -1 to disable GPU support')
+        parser.add_argument('-g', '--gpu', default="1", type=str, metavar='N',
+                            help='number of gpus')
         parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                             help='number of data loading workers (default: 4)')
         parser.add_argument('--print-freq', '-p', default=10, type=int,

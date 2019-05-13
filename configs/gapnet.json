@@ -1,19 +1,19 @@
 {
   "name": "gapnet",
   "comment": "GapNet with dilations in the bottleneck layers",
-  "workspace": "<resultpath>/cellpainting",
+  "workspace": "/data/results/",
   "dataset": {
     "reader": "datasets.Cellpainting",
     "group_views": false,
-    "label_matrix_file": "<datapath>/label-matrix.mtx",
-    "label_row_index_file": "<datapath>/labels-compound-index.csv",
-    "label_col_index_file": "<datapath>/labels-assay-index.csv",
-    "data_directory_path": "<datapath>/npzs",
+    "label_matrix_file": "/data/ci8b00670_si_002/Label_Matrix/label-matrix.mtx",
+    "label_row_index_file": "/data/ci8b00670_si_002/Label_Matrix/row-compound-index.csv",
+    "label_col_index_file": "/data/ci8b00670_si_002/Label_Matrix/column-assay-index.csv",
+    "data_directory_path": "/data/npzs/",
     "train": {
-      "sample_index_file": "<datapath>/cellpainting-split-train.csv"
+      "sample_index_file": "/data/ml.jku.at/software/cellpainting/dataset/datasplit1-train.csv"
     },
     "val": {
-      "sample_index_file": "<datapath>/cellpainting-split-val.csv"
+      "sample_index_file": "/data/ml.jku.at/software/cellpainting/dataset/datasplit1-val.csv"
     },
     "transforms": [
       "torchvision.transforms.ToTensor()",
@@ -26,8 +26,8 @@
     "momentum": 0.9,
     "weight_decay": 1e-4
   },
-  "lr_schedule_disabled": {
-    "decay_epoch": 20,
+  "lr_schedule": {
+    "decay_epoch": 10,
     "decay_rate": 0.1
   },
   "clip_grad_norm": {
